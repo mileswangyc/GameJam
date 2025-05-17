@@ -37,3 +37,4 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED/10)
 
 	move_and_slide()
+#JC
