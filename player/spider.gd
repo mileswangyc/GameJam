@@ -13,22 +13,9 @@ func _on_main_spider_is_stuck(stuck_point: Variant) -> void:
 	is_stuck = true
 
 func _physics_process(delta: float) -> void:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-	pass
->>>>>>> Stashed changes
-=======
-	pass
->>>>>>> Stashed changes
 		
-
-	 #Add the gravity.
-<<<<<<< Updated upstream
-	if not is_on_floor() and not is_stuck:
-=======
 	if not is_on_floor():
->>>>>>> Stashed changes
+
 		velocity += get_gravity() * delta
 
 	# Handle jump.
@@ -48,11 +35,4 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("WebScrollUp"):
 			position = position.move_toward(web_stuck_point, climb_speed * delta)
 		print("Spider: ", global_position, " | Stuck: ", web_stuck_point)
-
-	
-		
-
-		
-	
-	
 	move_and_slide()
