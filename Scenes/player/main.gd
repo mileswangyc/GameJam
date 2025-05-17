@@ -1,51 +1,33 @@
 extends Node2D
 
-var current_line: Line2D = null  # Reference to the active line
-var is_drawing: bool = false
-var is_stuck: bool = false
-var stuck_point: Vector2 = Vector2.ZERO  # Point where the web gets stuck
-var scroll_speed: int = 10.0  # Speed of the web's movement when scrolling
-signal spider_is_stuck(stuck_point)
+var resultposvar = Vector2.ZERO
+var lineinstance
+var line_on = false
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
 
-func _process(delta: float) -> void:
-	# Allow shooting only when not already drawing
-	if Input.is_action_just_pressed("Shoot") and not is_drawing and not is_stuck:
-		is_drawing = true
-		# Remove old line if it exists
-		if current_line and current_line.is_inside_tree():
-			current_line.queue_free()
-
-		# Create a new Line2D
-		current_line = Line2D.new()
-		$Spider.add_child(current_line)
-
-		# Get positions
-		var spider_pos = $Spider.global_position
-		var global_mouse_pos = get_global_mouse_position()
-
-		# Calculate direction and distance
-		var direction = (global_mouse_pos - spider_pos).normalized()
-		var total_distance = spider_pos.distance_to(global_mouse_pos)
-		var step_size = 100
-		var steps = int(total_distance / step_size)
-
-		# Setup the space_state for raycasting
-		var space_state = get_world_2d().direct_space_state
-		var hit = false
-
-		# Draw line and perform raycast
-		for i in range(steps):
-			var current_global_pos = $Spider.global_position + direction * step_size * i
-			var next_global_pos = $Spider.global_position + direction * step_size * (i + 1)
-
-			# Draw point relative to Spider
-			var local_point = $Spider.to_local(current_global_pos)
-			current_line.add_point(local_point)
-
-			# Small delay for drawing effect
-			$Timer.start(0.01)
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("Shoot") and line_on == false:
+		line_on = true
+		var mousedir = 250*(get_global_mouse_position()- $Spider.global_position).normalized()
+		lineinstance = $Line2D
+		
+		
+		var spacestate = get_world_2d().direct_space_state
+		var query = PhysicsRayQueryParameters2D.create($Spider.global_position, $Spider.global_position + mousedir * 10, 0xFFFFFFFF,[$Spider.get_rid()])
+		var result = spacestate.intersect_ray(query)
+		if result:
+			resultposvar = result.position
+		for i in range(10):
+			lineinstance.points = [$Spider.global_position, $Spider.global_position + mousedir * i]
+			print("front",$Spider.global_position +mousedir * i)
+			$Timer.start(delta)
 			await $Timer.timeout
+			
 
+<<<<<<< HEAD:Scenes/player/main.gd
 			# Perform raycast to check for collision
 			var ray_params = PhysicsRayQueryParameters2D.new()
 			ray_params.from = current_global_pos
@@ -91,3 +73,26 @@ func _process(delta: float) -> void:
 			stuck_point = Vector2.ZERO  # Reset stuck point
 
 	
+=======
+			if i == 9 and not result:
+				for l in range(11):
+					var finalspot = $Spider.global_position + mousedir * 10
+					lineinstance.points = [$Spider.global_position, finalspot - mousedir * l]
+					print("Back: ",finalspot - mousedir * l)
+					$Timer2.start(0.03); await $Timer2.timeout
+					if l == 10:
+						line_on = false
+						
+			
+	if resultposvar != Vector2.ZERO:
+		lineinstance.points = [$Spider.global_position, resultposvar]
+	#if Input.is_action_pressed("Shoot") and line_on == true:
+		#for p in range(10):
+			#lineinstance.points = [resultposvar - p * resultposvar - $Spider.global_position]
+			#$Timer.start(0.03); await $Timer.timeout
+			#if p == 9:
+				#break
+			
+			
+		
+>>>>>>> d077b5bae1ccc62e43ba64d18803498661715ac7:objects/levels/main.gd
