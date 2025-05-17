@@ -14,6 +14,10 @@ func _on_main_spider_is_stuck(stuck_point: Variant) -> void:
 
 func _physics_process(delta: float) -> void:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+	pass
+>>>>>>> Stashed changes
 =======
 	pass
 >>>>>>> Stashed changes

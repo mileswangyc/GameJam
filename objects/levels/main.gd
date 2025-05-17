@@ -54,6 +54,7 @@
 extends Node2D
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 var resultposvar = Vector2.ZERO
 var lineinstance
 var line_on = false
@@ -79,6 +80,8 @@ func _physics_process(delta: float) -> void:
 			print("front",$Spider.global_position +mousedir * i)
 			$Timer.start(delta)
 =======
+=======
+>>>>>>> Stashed changes
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass  # Nothing happens at start-up yet.
@@ -128,6 +131,7 @@ func _process(delta: float) -> void:
 			
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			if i == 9 and not result:
 				for l in range(11):
 					var finalspot = $Spider.global_position + mousedir * 10
@@ -150,6 +154,8 @@ func _process(delta: float) -> void:
 			
 		
 =======
+=======
+>>>>>>> Stashed changes
 			# Calculate where the next segment will end
 			var next_pos = current_pos + direction * step_size
 
@@ -179,4 +185,7 @@ func _process(delta: float) -> void:
 		if not hit:
 			line_instance.add_point(mouse_pos)
 			print("No collision, line ended at mouse")
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
