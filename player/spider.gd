@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var new_pos: Vector2 = Vector2.ZERO
 const SPEED = 500
-const JUMP_VELOCITY = -500
+const JUMP_VELOCITY = -700
 var mouse_dir: Vector2 = Vector2.ZERO
 var web: bool = false
 var is_stuck: bool = false
