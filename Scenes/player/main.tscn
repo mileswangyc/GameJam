@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://divkt8m7x7rw4"]
 
-[ext_resource type="Script" path="res://objects/levels/main.gd" id="1_64igm"]
-[ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://Scenes/player/spider.tscn" id="1_vnsvl"]
+[ext_resource type="Script" path="res://Scenes/player/main.gd" id="1_0n2v5"]
+[ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://Scenes/player/spider.tscn" id="2_i7ua7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o51va"]
 size = Vector2(1233, 199)
@@ -13,14 +13,7 @@ size = Vector2(1189, 189)
 size = Vector2(286, 60)
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_64igm")
-
-[node name="Spider" parent="." instance=ExtResource("1_vnsvl")]
-position = Vector2(144, 1)
-
-[node name="Camera2D2" type="Camera2D" parent="Spider"]
-zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
+script = ExtResource("1_0n2v5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-595, -267)
@@ -65,5 +58,9 @@ position = Vector2(839, 338)
 shape = SubResource("RectangleShape2D_o64f1")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Spider" parent="." instance=ExtResource("2_i7ua7")]
+
+[node name="Camera2D" type="Camera2D" parent="Spider"]
 
 [connection signal="spider_is_stuck" from="." to="Spider" method="_on_main_spider_is_stuck"]

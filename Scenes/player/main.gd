@@ -78,11 +78,14 @@ func _process(delta: float) -> void:
 
 		# Continuously update the line to reflect the new Spider position and stuck point
 		spider_is_stuck.emit(stuck_point)
+
+		
 		if current_line:
 			current_line.points = [$Spider.to_local($Spider.global_position), $Spider.to_local(stuck_point)]
-
+		
 		# If Spider reaches the stuck point, stop moving and allow shooting again
-		if $Spider.global_position.distance_to(stuck_point) < 10:
+		if $Spider.global_position.distance_to(stuck_point) < 100:
+			
 			print("Spider reached stuck point, can reshoot.")
 			is_stuck = false  # Reset stuck state after reaching the point
 			stuck_point = Vector2.ZERO  # Reset stuck point
