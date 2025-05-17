@@ -13,7 +13,7 @@ var stuck_point: Vector2 = Vector2.ZERO  # Point where the web gets stuck
 
 func _process(delta: float) -> void:
 	# Allow shooting only when not already drawing
-	if Input.is_action_just_pressed("Shoot") and not is_drawing and not is_stuck:
+	if Input.is_action_just_pressed("Shoot") and not is_drawing:
 		is_drawing = true
 		# Remove old line if it exists
 		if current_line and current_line.is_inside_tree():
@@ -84,8 +84,6 @@ func _process(delta: float) -> void:
 
 	# If the web is stuck, the Spider should move toward the stuck point and update the line
 	if is_stuck and stuck_point != Vector2.ZERO:  # Only move if stuck_point is valid
-		# Move the Spider toward the stuck point (smooth movement)
-		$Spider.global_position = $Spider.global_position.move_toward(stuck_point, 5 * delta)
 
 		# Continuously update the line to reflect the new Spider position and stuck point
 		if current_line:
