@@ -5,26 +5,18 @@ const SPEED = 500
 const JUMP_VELOCITY = -500
 var mouse_dir: Vector2 = Vector2.ZERO
 var web: bool = false
-
-
+var is_stuck: bool = false
+var web_stuck_point: Vector2
+var climb_speed: float = 150
+func _on_main_spider_is_stuck(stuck_point: Variant) -> void:
+	web_stuck_point = stuck_point
+	is_stuck = true
 
 func _physics_process(delta: float) -> void:
-	#if Input.is_action_just_pressed("Shoot"):
-		#mouse_dir = 40 * (get_global_mouse_position() - global_position).normalized()
-		#var line_instance = Line2D.new()
-		#add_child(line_instance)
-		#new_pos = position
-		#for i in range(20):	
-			#line_instance.add_point(new_pos, i)
-			#print(new_pos)
-			#$Timer.start(delta)
-			#await $Timer.timeout
-			#new_pos = line_instance.get_point_position(i) + mouse_dir 
-			#print(i)
 		
 
-	# Add the gravity.
-	if not is_on_floor():
+	 #Add the gravity.
+	if not is_on_floor() and not is_stuck:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
@@ -39,4 +31,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED/10)
 		
+
+	if is_stuck:
+		if Input.is_action_pressed("WebScrollUp"):
+			position = position.move_toward(web_stuck_point, climb_speed * delta)
+		print("Spider: ", global_position, " | Stuck: ", web_stuck_point)
+
+	
+		
+
+		
+	
+	
 	move_and_slide()

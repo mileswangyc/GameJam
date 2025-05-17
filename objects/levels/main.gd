@@ -1,25 +1,23 @@
 extends Node2D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-var trail_points: Array = []
-var current_line: Line2D = null
+var current_line: Line2D = null  # Reference to the active line
 var is_drawing: bool = false
 var is_stuck: bool = false
 var stuck_point: Vector2 = Vector2.ZERO  # Point where the web gets stuck
+var scroll_speed: int = 10.0  # Speed of the web's movement when scrolling
+signal spider_is_stuck(stuck_point)
 
 func _process(delta: float) -> void:
 	# Allow shooting only when not already drawing
-	if Input.is_action_just_pressed("Shoot") and not is_drawing:
+	if Input.is_action_just_pressed("Shoot") and not is_drawing and not is_stuck:
 		is_drawing = true
 		# Remove old line if it exists
 		if current_line and current_line.is_inside_tree():
 			current_line.queue_free()
 
-		trail_points.clear()
+		# Create a new Line2D
+		current_line = Line2D.new()
+		$Spider.add_child(current_line)
 
 		# Get positions
 		var spider_pos = $Spider.global_position
@@ -30,10 +28,6 @@ func _process(delta: float) -> void:
 		var total_distance = spider_pos.distance_to(global_mouse_pos)
 		var step_size = 100
 		var steps = int(total_distance / step_size)
-
-		# Create a new Line2D
-		current_line = Line2D.new()
-		$Spider.add_child(current_line)
 
 		# Setup the space_state for raycasting
 		var space_state = get_world_2d().direct_space_state
@@ -47,7 +41,6 @@ func _process(delta: float) -> void:
 			# Draw point relative to Spider
 			var local_point = $Spider.to_local(current_global_pos)
 			current_line.add_point(local_point)
-			trail_points.append(local_point)
 
 			# Small delay for drawing effect
 			$Timer.start(0.01)
@@ -70,7 +63,6 @@ func _process(delta: float) -> void:
 				# Set the line to only have two points (Spider and stuck point)
 				var local_hit = $Spider.to_local(stuck_point)
 				current_line.points = [$Spider.to_local(spider_pos), local_hit]
-				trail_points = [$Spider.to_local(spider_pos), local_hit]
 				break
 
 		# If no hit, the line reaches the mouse position
@@ -78,7 +70,6 @@ func _process(delta: float) -> void:
 			var final_pos = $Spider.global_position + direction * total_distance
 			var local_final = $Spider.to_local(final_pos)
 			current_line.add_point(local_final)
-			trail_points.append(local_final)
 
 		is_drawing = false  # Allow the next shot
 
@@ -86,6 +77,7 @@ func _process(delta: float) -> void:
 	if is_stuck and stuck_point != Vector2.ZERO:  # Only move if stuck_point is valid
 
 		# Continuously update the line to reflect the new Spider position and stuck point
+		spider_is_stuck.emit(stuck_point)
 		if current_line:
 			current_line.points = [$Spider.to_local($Spider.global_position), $Spider.to_local(stuck_point)]
 
@@ -94,3 +86,5 @@ func _process(delta: float) -> void:
 			print("Spider reached stuck point, can reshoot.")
 			is_stuck = false  # Reset stuck state after reaching the point
 			stuck_point = Vector2.ZERO  # Reset stuck point
+
+	
