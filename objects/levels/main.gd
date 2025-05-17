@@ -3,7 +3,7 @@ extends Node2D
 var resultposvar = Vector2.ZERO
 var lineinstance
 var line_on = false
-# Called when the node enters the scene tree for the first time.
+# Called when the node enters the scene tree for the first time.a
 func _ready() -> void:
 	pass
 
