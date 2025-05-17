@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://divkt8m7x7rw4"]
+[gd_scene load_steps=6 format=3 uid="uid://divkt8m7x7rw4"]
 
+[ext_resource type="Script" path="res://objects/levels/main.gd" id="1_64igm"]
 [ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://objects/levels/spider.tscn" id="1_vnsvl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o51va"]
@@ -12,6 +13,7 @@ size = Vector2(1189, 189)
 size = Vector2(286, 60)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_64igm")
 
 [node name="Spider" parent="." instance=ExtResource("1_vnsvl")]
 
@@ -60,3 +62,5 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(839, 338)
 shape = SubResource("RectangleShape2D_o64f1")
+
+[node name="Timer" type="Timer" parent="."]
