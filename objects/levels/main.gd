@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 		line_on = true
 		var mousedir = 250*(get_global_mouse_position()- $Spider.global_position).normalized()
 		lineinstance = $Line2D
-		add_child(lineinstance)
+		
 		
 		var spacestate = get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.create($Spider.global_position, $Spider.global_position + mousedir * 10, 0xFFFFFFFF,[$Spider.get_rid()])
