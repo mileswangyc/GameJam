@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://inwnwk08gi5o"]
+
+[sub_resource type="GDScript" id="GDScript_jbej8"]
+script/source = "extends RigidBody2D
+
+
+var unclamped = 0
+var speed = 1000
+var maxspeed = 1000
+#
+func _physics_process(delta: float) -> void:
+	if Globals.webmiles == false:
+		position = %Spider.position
+	if Globals.webmiles == true:
+		linear_velocity += Globals.newvelo
+		Globals.newvelo = Vector2.ZERO
+		var movement = Input.get_vector(\"Left\",\"Right\",\"Up\",\"Down\")
+		apply_central_force(movement*1000)
+		
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnpet"]
+size = Vector2(78, 84)
+
+[node name="SpiderStandIm" type="RigidBody2D"]
+script = SubResource("GDScript_jbej8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pnpet")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -68.0
+offset_top = -14.0
+offset_right = 56.0
+offset_bottom = 12.0
+color = Color(0, 1, 0, 1)

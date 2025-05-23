@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=3 uid="uid://divkt8m7x7rw4"]
+
+[ext_resource type="Script" path="res://Scenes/player/mainmiles.gd" id="1_s0p7i"]
+[ext_resource type="Texture2D" uid="uid://cea3hcs3xmoqc" path="res://player/OpaqueL1t.png" id="2_e05sl"]
+[ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://Scenes/player/spider.tscn" id="2_i7ua7"]
+[ext_resource type="PackedScene" uid="uid://inwnwk08gi5o" path="res://spider_stand_im.tscn" id="3_jnsd1"]
+[ext_resource type="Texture2D" uid="uid://bffrnnastavug" path="res://player/level1.png" id="4_egglu"]
+[ext_resource type="Script" path="res://Scenes/player/camera_2d.gd" id="6_w5fh3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54071"]
+radius = 31.1448
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_s0p7i")
+metadata/_edit_lock_ = true
+
+[node name="ParallaxOrg" type="Node2D" parent="."]
+modulate = Color(0.784314, 0.784314, 0.960784, 1)
+
+[node name="Layer5" type="Parallax2D" parent="ParallaxOrg"]
+texture_repeat = 3
+scroll_scale = Vector2(0, 1)
+scroll_offset = Vector2(-540, -712)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxOrg/Layer5"]
+position = Vector2(296, -2590)
+scale = Vector2(80, 80)
+texture = ExtResource("2_e05sl")
+region_enabled = true
+region_rect = Rect2(0, 319.323, 200, 64.6765)
+
+[node name="Layer4" type="Parallax2D" parent="ParallaxOrg"]
+texture_repeat = 3
+scroll_scale = Vector2(0.2, 1)
+scroll_offset = Vector2(-540, -712)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxOrg/Layer4"]
+position = Vector2(296, -2590)
+scale = Vector2(80, 80)
+texture = ExtResource("2_e05sl")
+region_enabled = true
+region_rect = Rect2(0, 254.909, 200, 64.7273)
+
+[node name="Layer3" type="Parallax2D" parent="ParallaxOrg"]
+texture_repeat = 3
+scroll_scale = Vector2(0.4, 1)
+scroll_offset = Vector2(-540, -712)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxOrg/Layer3"]
+position = Vector2(296, -2590)
+scale = Vector2(80, 80)
+texture = ExtResource("2_e05sl")
+region_enabled = true
+region_rect = Rect2(0, 192.636, 200, 63.4451)
+
+[node name="Layer2" type="Parallax2D" parent="ParallaxOrg"]
+texture_repeat = 3
+scroll_scale = Vector2(0.6, 1)
+scroll_offset = Vector2(-540, -712)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxOrg/Layer2"]
+position = Vector2(296, -2590)
+scale = Vector2(80, 80)
+texture = ExtResource("2_e05sl")
+region_enabled = true
+region_rect = Rect2(0, 127.745, 200, 64.4909)
+
+[node name="Layer" type="Parallax2D" parent="ParallaxOrg"]
+texture_repeat = 3
+scroll_scale = Vector2(0.8, 1)
+scroll_offset = Vector2(-540, -712)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxOrg/Layer"]
+position = Vector2(296, -2590)
+scale = Vector2(80, 80)
+texture = ExtResource("2_e05sl")
+region_enabled = true
+region_rect = Rect2(0, 63.9119, 200, 64.1283)
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Marker" type="StaticBody2D" parent="."]
+position = Vector2(-6, -398)
+disable_mode = 1
+collision_layer = 8
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker"]
+shape = SubResource("CircleShape2D_54071")
+
+[node name="Spider" parent="." instance=ExtResource("2_i7ua7")]
+unique_name_in_owner = true
+position = Vector2(-6879, -4500)
+collision_mask = 12
+
+[node name="SpiderStandIn" parent="." instance=ExtResource("3_jnsd1")]
+unique_name_in_owner = true
+position = Vector2(-8, 182)
+disable_mode = 2
+collision_layer = 2
+collision_mask = 12
+gravity_scale = 2.335
+lock_rotation = true
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="SpiderStandIn"]
+position = Vector2(2, 0)
+rotation = 3.14159
+node_a = NodePath("..")
+node_b = NodePath("../../Marker")
+bias = 0.268
+length = 580.0
+stiffness = 7.5
+
+[node name="LevelStatic" type="StaticBody2D" parent="."]
+modulate = Color(0.811765, 1, 1, 1)
+position = Vector2(235, -3165)
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(-1794, 1323, -1795, 2160, 5570, 2153, 5580, 1198, 4769, 1205, 4765, 1378, 4801, 1384, 4801, 1464, 4839, 1466, 4841, 1539, 4878, 1544, 4876, 1735, 4912, 1737, 4917, 1810, 4697, 1815, 4694, 1849, 4400, 1852, 4398, 1812, 4029, 1815, 4029, 1775, 3846, 1773, 3844, 1736, 2776, 1737, 2777, 1774, 2520, 1775, 2519, 1813, 2000, 1813, 2001, 1777, 1892, 1774, 1891, 1737, 1339, 1739, 1339, 1773, 897, 1777, 897, 1813, 455, 1816, 454, 1850, 270, 1853, 269, 1814, -175, 1813, -174, 1777, -541, 1776, -541, 1737, -726, 1736, -726, 1699, -947, 1699, -948, 1661, -1133, 1659, -1133, 1621, -1388, 1621, -1388, 1583, -1575, 1582, -1574, 1428, -1611, 1428, -1611, 1389, -1648, 1390, -1647, 1352, -1684, 1352, -1683, 1313, -1796, 1313)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(-1055, 275, -1053, 346, -1012, 349, -967, 411, -851, 416, -743, 343, -730, 271)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(448, 579, 450, 619, 267, 653, 120, 696, 64, 731, 6, 693, -26, 651, -53, 608, -56, 502, 82, 502, 83, 541, 266, 544, 267, 577)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(-1787, 389, -1788, 649, -1714, 649, -1398, 479, -1394, 383)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(1265, 349, 1266, 385, 1229, 387, 1230, 420, 1194, 426, 1193, 536, 1375, 731, 1454, 730, 1560, 655, 1699, 655, 1779, 615, 1781, 541, 1709, 541, 1706, 503, 1634, 501, 1633, 466, 1599, 465, 1597, 427, 1560, 425, 1558, 388, 1483, 387, 1485, 349)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(2667, 614, 2666, 582, 2701, 581, 2703, 541, 2775, 540, 2776, 503, 3032, 503, 3033, 539, 3070, 541, 3070, 618, 3107, 618, 3106, 678, 3048, 733, 2879, 733)
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="LevelStatic"]
+position = Vector2(-1890.7, -933)
+polygon = PackedVector2Array(3844, 690, 3846, 658, 3882, 657, 3882, 580, 3917, 580, 3918, 543, 4138, 541, 4140, 578, 4173, 580, 4175, 617, 4212, 618, 4214, 652, 4249, 656, 4251, 691, 4321, 695, 4323, 772, 4288, 771, 4228, 808, 4047, 812)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelStatic"]
+scale = Vector2(36.8625, 38.5625)
+texture = ExtResource("4_egglu")
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="LevelStatic"]
+polygon = PackedVector2Array(-3686, 1239, -3672.5, -551, -3659, -1358, 3664, -1351, 3691, 283, 3698, 1225.5, 4037, 1239, 4077.5, -2158, -3910, -1873.5, -4127, 927)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(3188, -3239)
+zoom = Vector2(0.13, 0.13)
+position_smoothing_enabled = true
+script = ExtResource("6_w5fh3")

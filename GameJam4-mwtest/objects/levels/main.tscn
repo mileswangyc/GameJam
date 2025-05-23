@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://divkt8m7x7rw4"]
+
+<<<<<<< HEAD
+[ext_resource type="Script" path="res://objects/levels/main.gd" id="1_64igm"]
+[ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://Scenes/player/spider.tscn" id="1_vnsvl"]
+=======
+[ext_resource type="PackedScene" uid="uid://bela7qtukowau" path="res://objects/levels/spider.tscn" id="1_vnsvl"]
+[ext_resource type="Script" path="res://objects/levels/main.gd" id="3_otn76"]
+>>>>>>> d077b5bae1ccc62e43ba64d18803498661715ac7
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o51va"]
+size = Vector2(1233, 199)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rb25x"]
+size = Vector2(1189, 189)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o64f1"]
+size = Vector2(286, 60)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("3_otn76")
+
+[node name="Spider" parent="." instance=ExtResource("1_vnsvl")]
+position = Vector2(144, 1)
+
+[node name="Camera2D2" type="Camera2D" parent="Spider"]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-595, -267)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -5.0
+offset_top = 500.0
+offset_right = 1186.0
+offset_bottom = 693.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(590, 601)
+shape = SubResource("RectangleShape2D_o51va")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-595, -267)
+
+[node name="ColorRect3" type="ColorRect" parent="StaticBody2D2"]
+offset_left = 696.0
+offset_top = 308.0
+offset_right = 981.0
+offset_bottom = 364.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(557, -228)
+shape = SubResource("RectangleShape2D_rb25x")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(-595, -267)
+
+[node name="ColorRect2" type="ColorRect" parent="StaticBody2D3"]
+offset_left = -37.0
+offset_top = -329.0
+offset_right = 1154.0
+offset_bottom = -136.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(839, 338)
+shape = SubResource("RectangleShape2D_o64f1")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+default_color = Color(0.164706, 0.972549, 0.486275, 1)
